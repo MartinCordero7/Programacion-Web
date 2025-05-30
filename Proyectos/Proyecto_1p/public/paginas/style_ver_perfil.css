@@ -1,0 +1,112 @@
+body {
+            background: linear-gradient(120deg, #f4f6fa 0%, #dbeafe 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        section nav.navbar {
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+            background: #1e293b !important;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+            padding: 32px 24px;
+            margin-bottom: 32px;
+        }
+
+        #fotoPerfil {
+            background: #e2e8f0;
+            border-radius: 12px;
+            padding: 18px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fotoPerfil img {
+            border-radius: 10px;
+            border: 3px solid #2563eb;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.13);
+            transition: transform 0.2s;
+        }
+
+        #fotoPerfil img:hover {
+            transform: scale(1.04);
+        }
+
+        #datosPerfil {
+            margin-top: 18px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 18px 16px;
+            font-size: 1.08rem;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+            color: #1e293b;
+        }
+
+        #datosPerfil div {
+            margin-bottom: 8px;
+        }
+
+        #mapaPerfil {
+            border-radius: 14px;
+            box-shadow: 0 2px 16px rgba(37, 99, 235, 0.13);
+            border: 2px solid #2563eb;
+        }
+
+        .dropdown-menu {
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.10);
+            background: #f8fafc;
+        }
+
+        .navbar-brand {
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: #f59e42 !important;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 #1e293b, 0 2px 8px rgba(0, 0, 0, 0.10);
+        }
+
+        .btn-warning {
+            font-weight: 600;
+            border-radius: 8px;
+            background: #f59e42;
+            border: none;
+            color: #fff;
+        }
+
+        .btn-warning:hover {
+            background: #ea580c;
+            color: #fff;
+        }
+
+        .dropdown-item:active,
+        .dropdown-item:focus {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .nav-link.text-danger {
+            color: #ef4444 !important;
+        }
+
+        .nav-link#navbarDropdown {
+            color: #fff !important;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 12px 4px;
+            }
+
+            #mapaPerfil {
+                height: 250px !important;
+            }
+        }

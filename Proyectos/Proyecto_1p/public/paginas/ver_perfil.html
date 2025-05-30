@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Perfil</title>
+    <link href="/public/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/paginas/style_ver_perfil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Agrega Montserrat para la marca -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <section>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Perfiles</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Seleccionar perfil
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdownPerfiles">
+                                <!-- Perfiles se llenan con JS -->
+                            </ul>
+                        </li>
+                        <!-- Nuevo dropdown para eliminar usuario -->
+                        <li class="nav-item dropdown ms-2">
+                            <a class="nav-link dropdown-toggle text-danger" href="#" id="eliminarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Eliminar usuario
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="eliminarDropdown" id="dropdownEliminar">
+                                <!-- Perfiles con botón eliminar se llenan con JS -->
+                            </ul>
+                        </li>
+                    </ul>
+                    <a href="/bienvenida.html" class="btn btn-warning ms-2">Volver a inicio</a>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <!-- Contenido principal -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <!-- Columna 1: Foto y datos -->
+                <div class="col-md-3 d-flex flex-column align-items-center">
+                    <div id="fotoPerfil" class="mb-3">
+                        <!-- Foto se carga aquí -->
+                    </div>
+                    <div id="datosPerfil" class="w-100">
+                        <!-- Datos debajo de la foto -->
+                    </div>
+                </div>
+                <!-- Columnas 2-12: Mapa -->
+                <div class="col-md-9 d-flex align-items-center">
+                    <div id="mapaPerfil" style="height: 400px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <script src="/public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script>
+            // Cargar perfiles desde localStorage (array de usuarios)
+            function obtenerPerfiles() {
+                let perfiles = JSON.parse(localStorage.getItem("perfiles")) || [];
+                return perfiles;
+            }
+
+            function guardarPerfiles(perfiles) {
+                localStorage.setItem("perfiles", JSON.stringify(perfiles));
+            }
+
+            function cargarListaPerfiles() {
+                const dropdown = document.getElementById("dropdownPerfiles");
+                dropdown.innerHTML = "";
+                let perfiles = obtenerPerfiles();
+                perfiles.forEach((perfil, idx) => {
+                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    a.className = "dropdown-item";
+                    a.href = "#";
+                    a.textContent = perfil.nombre + " " + perfil.apellido;
+                    a.onclick = function () { mostrarPerfilSeleccionado(idx); };
+                    li.appendChild(a);
+                    dropdown.appendChild(li);
+                });
+                cargarDropdownEliminar(); // Actualiza también el dropdown de eliminar
+            }
+
+            function cargarDropdownEliminar() {
+                const dropdown = document.getElementById("dropdownEliminar");
+                dropdown.innerHTML = "";
+                let perfiles = obtenerPerfiles();
+                perfiles.forEach((perfil, idx) => {
+                    let li = document.createElement("li");
+                    li.className = "d-flex align-items-center px-2";
+                    let span = document.createElement("span");
+                    span.textContent = perfil.nombre + " " + perfil.apellido;
+                    span.className = "flex-grow-1";
+                    let btn = document.createElement("button");
+                    btn.className = "btn btn-sm btn-danger ms-2";
+                    btn.textContent = "Eliminar";
+                    btn.onclick = function (e) {
+                        e.stopPropagation();
+                        eliminarPerfil(idx);
+                    };
+                    li.appendChild(span);
+                    li.appendChild(btn);
+                    dropdown.appendChild(li);
+                });
+            }
+
+            function eliminarPerfil(idx) {
+                let perfiles = obtenerPerfiles();
+                if (idx < 0 || idx >= perfiles.length) return;
+                let nombre = perfiles[idx].nombre + " " + perfiles[idx].apellido;
+                if (confirm(`¿Seguro que deseas eliminar el usuario "${nombre}"?`)) {
+                    perfiles.splice(idx, 1);
+                    guardarPerfiles(perfiles);
+                    alert("El usuario ha sido eliminado.");
+                    cargarListaPerfiles();
+                    // Limpiar vista si no hay perfiles
+                    if (perfiles.length === 0) {
+                        document.getElementById("fotoPerfil").innerHTML = "";
+                        document.getElementById("datosPerfil").innerHTML = "";
+                        if (window.mapa) window.mapa.remove();
+                    }
+                }
+            }
+
+            // Cambia la función para aceptar índice
+            function mostrarPerfilSeleccionado(idx) {
+                let perfiles = obtenerPerfiles();
+                if (idx < 0 || idx >= perfiles.length) return;
+                let perfil = perfiles[idx];
+
+                // Mostrar foto
+                let fotoDiv = document.getElementById("fotoPerfil");
+                if (perfil.fotoDataUrl) {
+                    fotoDiv.innerHTML = `<img src="${perfil.fotoDataUrl}" class="img-thumbnail" style="width:220px;height:240px;object-fit:cover;">`;
+                } else {
+                    fotoDiv.innerHTML = `<div class="text-muted">Sin foto</div>`;
+                }
+
+                // Mostrar datos
+                let datosDiv = document.getElementById("datosPerfil");
+                datosDiv.innerHTML = `
+                <div><strong>Nombre:</strong> ${perfil.nombre}</div>
+                <div><strong>Apellido:</strong> ${perfil.apellido}</div>
+                <div><strong>Edad:</strong> ${perfil.edad}</div>
+                <div><strong>Departamento:</strong> ${perfil.departamento}</div>
+                <div><strong>Latitud:</strong> ${perfil.latitud}</div>
+                <div><strong>Longitud:</strong> ${perfil.longitud}</div>
+            `;
+
+                // Mostrar mapa
+                if (window.mapa) {
+                    window.mapa.remove();
+                }
+                window.mapa = L.map('mapaPerfil').setView([perfil.latitud, perfil.longitud], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19
+                }).addTo(window.mapa);
+                L.marker([perfil.latitud, perfil.longitud]).addTo(window.mapa)
+                    .bindPopup(`${perfil.nombre} ${perfil.apellido}`).openPopup();
+            }
+
+            // Inicializar
+            cargarListaPerfiles();
+        </script>
+    </section>
+</body>
+
+</html>

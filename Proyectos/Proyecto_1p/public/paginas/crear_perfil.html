@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link href="/public/bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/paginas/style_perfil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="/public/js/guardardatos.js"></script>
+</head>
+
+<body>
+    <main>
+        <div class="container d-flex flex-column align-items-center ">
+            <h1 class="main-title text-center"
+                style="font-family: 'Pacifico', cursive; font-style: italic; text-decoration: underline;">CREAR
+                PERFIL</h1>
+            <!-- Sección: Fotografía Personal -->
+            <section class="card form-section w-100 mb-3 transparent-container" style="max-width: 1000px;">
+                <div class="row">
+                    <!-- Sección: Cámara -->
+                    <section class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <form action="/public/paginas/crear_perfil.html" method="POST">
+                            <div class="w-100 mb-2">
+                                <label for="nombre" class="form-label text-center w-100"
+                                    style="font-weight: bold;">Fotografía Personal</label>
+                            </div>
+                            <video id="video" width="220" height="240" autoplay
+                                style="border:8px solid rgba(152, 7, 92, 0.379); object-fit:cover;"></video>
+                            <canvas id="my_foto" width="220px" height="240px"
+                                style="display:none; border:2px solid rgb(35, 0, 94)"></canvas>
+                            <div class="row mt-3 w-100">
+                                <div class="col-6 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary" id="start-camera"
+                                        onclick="fnc_video()">Volver a intentar</button>
+                                </div>
+                                <div class="col-6 d-flex justify-content-start">
+                                    <button type="button" class="btn btn-success" id="take-photo"
+                                        onclick="fnc_foto()">Tomar Foto</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <!-- Sección: Datos Personales -->
+                    <section class="col-md-6 d-flex flex-column justify-content-center">
+                        <form action="/public/paginas/crear_perfil.html" method="POST">
+                            <div class="mb-2">
+                                <label for="nombre" class="form-label fw-bold fst-italic">Nombres</label>
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Nombre" id="Nombre" required></textarea>
+                                <label for="Nombre">Ingrese su nombre</label>
+                            </div>
+                            <br>
+                            <div class="mb-2">
+                                <label for="Apellido" class="form-label fw-bold fst-italic">Apellidos</label>
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Apellido" id="Apellido" required></textarea>
+                                <label for="Apellido">Ingrese su apellido</label>
+                            </div>
+                            <br>
+                            <div class="mb-2">
+                                <label for="date" class="form-label fw-bold fst-italic">Edad</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" min="1990-12-31"
+                                    max="2025-05-30" required>
+                            </div>
+                            <br>
+                            <div class="mb-2">
+                                <label for="Departamento" class="form-label fw-bold fst-italic">Departamento</label>
+                                <select id="Departamento" name="Departamento" class="form-select" required>
+                                    <option value="" disabled selected>Seleccione el departamento al que pertenece
+                                    </option>
+                                    <option value="Electronica">Electronica</option>
+                                    <option value="Mecanica">Mecanica</option>
+                                    <option value="IASA">IASA</option>
+                                    <option value="Software">Software</option>
+                                </select>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </section>
+            <!-- Sección: Ubicación -->
+            <section class="map-section mx-auto card form-section w-100 transparent-container"
+                style="max-width: 1000px;">
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+                <h2 class="main-title text-center"
+                    style="font-family: 'Pacifico', cursive; font-style: italic; text-decoration: underline;">UBICACION
+                </h2>
+                <br>
+                <label for="latitud" class="ms-44 fw-bold fst-italic">Su Latitud es: </label>
+                <br>
+                <input type="text" id="latitud">
+                <br><br>
+                <label for="longitud" class="fw-bold fst-italic">Su Longitud es: </label>
+                <br>
+                <input type="text" id="longitud">
+                <br><br>
+                <div id="map" style="height: 400px; width: 1200px;" class="mx-auto d-block"></div>
+                <br>
+                <button type="button" class="btn btn-primary" onclick="fnc_guardar()">Enviar Datos</button>
+                <br>
+                <a href="/bienvenida.html" class="btn btn-warning">Volver a la pagina principal</a>
+            </section>
+        </div>
+        <script src="/public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="/public/js/crearperfil.js"></script>
+        <script src="/public/js/ubicacion.js"></script>
+
+
+    </main>
+</body>
+
+</html>

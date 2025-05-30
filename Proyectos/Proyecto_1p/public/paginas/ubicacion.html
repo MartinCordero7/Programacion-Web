@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/bootstrap-5.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <link rel="stylesheet" href="/style.css">
+     <style>
+        #mapa {
+            
+            height: max-content;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h1>Geolocation Api HTML</h1>
+        <br>
+
+        <label for="latitud">Su Latitud es: </label>
+        <input type="text" id="latitud" >
+        <br><br>
+        
+        <label for="longitud">Su Longitud es: </label>
+        <input type="text" id="longitud" >
+        <br><br>
+
+        <div id="map" style="height: 450px;"></div>
+        <br>
+        <a href="/public/paginas/crear_perfil.html" id="enviarDatos" class="btn btn-primary" onclick="datos()">Enviar datos</a>
+
+        </div>
+    </div>
+
+
+    <script src="./public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <script src="/public/js/ubicacion.js"></script>
+</body>
+</html>
