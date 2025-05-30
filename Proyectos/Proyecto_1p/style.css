@@ -1,0 +1,53 @@
+body {
+  background-image: url("/public/imagenes/fondo_index.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+}
+
+.transparent-container {
+  background-color: transparent;
+  border: 2px solid #ccc;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
+}
+
+.transparent-container:hover {
+  background-image: url("/public/imagenes/fondo_index.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body {
+  overflow: hidden;
+}
+
+.nav-item {
+  margin: 33px;
+}
+
+.text-container {
+  max-width: 75%;
+  /* Restrict width to 75% of its parent */
+  height: auto;
+  /* Allow vertical growth */
+  text-align: justify;
+  /* Optional: Justify text for better readability */
+}
+
+.titulo-proyecto {
+  color: white;
+}
+
+/* Efecto de zoom y sombra al pasar el mouse por las imágenes de bienvenida */
+.img-hover-zoom {
+  transition: transform 0.2s cubic-bezier(.4, 2, .6, 1);
+}
+
+.img-hover-zoom:hover {
+  transform: scale(1.13);
+  z-index: 2;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.18);
+}
